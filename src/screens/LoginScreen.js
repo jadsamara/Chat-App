@@ -1,51 +1,56 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet, View, Text, TextInput } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Fire";
+import { Button } from "react-native-paper";
 
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const onHandleLogin = () => {
+    if (email !== "" && password !== "") {
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => console.log("Login success"))
+        .catch((err) => console.log(`Login err: ${err}`));
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.circle} />
       <View style={styles.header}>
         <Text style={styles.headertext}>Username</Text>
-        <TextInput
-          style={styles.textinput}
-          onChangeText={setEmail}
-          placeholder="Enter email"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-          autoFocus={true}
-          value={email}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Enter password"
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={true}
-          textContentType="password"
-          value={password}
-          onChangeText={setPassword}
-        />
-        <View style={{ marginTop: 64, alignItems: "flex-end" }}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("ChatScreen", { name: name })}
-          >
-            <Ionicons name="md-arrow-forward" size={25} color="#fff" />
-          </TouchableOpacity>
+        <View style={styles.inputcontainer}>
+          <TextInput
+            style={styles.textinput}
+            onChangeText={setEmail}
+            placeholder="Enter email"
+            autoCapitalize="none"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+            autoFocus={true}
+            value={email}
+          />
+          <TextInput
+            style={styles.textinput}
+            placeholder="Enter password"
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry={true}
+            textContentType="password"
+            value={password}
+            onChangeText={setPassword}
+          />
+          <View style={{ marginTop: 10 }}>
+            <Button
+              icon="camera"
+              mode="contained"
+              onPress={() => console.log("Pressed")}
+            >
+              Press me
+            </Button>
+          </View>
         </View>
       </View>
     </View>
@@ -77,14 +82,18 @@ const styles = StyleSheet.create({
     color: "#514e5a",
   },
 
-  textinput: {
+  inputcontainer: {
     marginTop: 32,
+  },
+
+  textinput: {
+    marginTop: 20,
     height: 50,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: "#bab7c3",
-    borderRadius: 30,
+    borderRadius: 10,
     paddingHorizontal: 16,
-    fontWeight: "600",
+    fontWeight: "800",
   },
 
   button: {
