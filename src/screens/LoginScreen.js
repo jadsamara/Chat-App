@@ -7,21 +7,37 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Fire";
 
 export const LoginScreen = ({ navigation }) => {
-  const [name, setName] = useState("");
-  console.log(name);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <View style={styles.container}>
       <View style={styles.circle} />
-
       <View style={styles.header}>
         <Text style={styles.headertext}>Username</Text>
         <TextInput
-          placeholder="Username"
           style={styles.textinput}
-          onChangeText={setName}
-          value={name}
+          onChangeText={setEmail}
+          placeholder="Enter email"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          textContentType="emailAddress"
+          autoFocus={true}
+          value={email}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Enter password"
+          autoCapitalize="none"
+          autoCorrect={false}
+          secureTextEntry={true}
+          textContentType="password"
+          value={password}
+          onChangeText={setPassword}
         />
         <View style={{ marginTop: 64, alignItems: "flex-end" }}>
           <TouchableOpacity
