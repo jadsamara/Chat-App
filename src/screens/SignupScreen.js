@@ -7,12 +7,15 @@ import { Button } from "react-native-paper";
 export const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const onHandleSignup = () => {
     if (email !== "" && password !== "") {
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => console.log("Signup success"))
-        .catch((err) => console.log(`Login err: ${err}`));
+        .catch((err) => {
+          setError(true);
+        });
     }
   };
 
@@ -20,7 +23,7 @@ export const SignupScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.circle} />
       <View style={styles.header}>
-        <Text style={styles.headertext}>Sign Up</Text>
+        <Text style={styles.headertext}>Create Account!</Text>
         <View style={styles.inputcontainer}>
           <TextInput
             style={styles.textinput}
@@ -41,11 +44,16 @@ export const SignupScreen = ({ navigation }) => {
             value={password}
             onChangeText={setPassword}
           />
-          <View style={{ marginTop: 20, alignItems: "center" }}>
+          <View style={{ alignItems: "center", marginTop: 10 }}>
+            <Text style={{ color: "red" }}>
+              {error ? "Use valid Email Address" : ""}
+            </Text>
+          </View>
+          <View style={{ marginTop: 10, alignItems: "center" }}>
             <Button
               icon="lock"
               mode="contained"
-              color="#0277bd"
+              color="#03a9f4"
               onPress={onHandleSignup}
               style={styles.button}
             >
@@ -54,7 +62,7 @@ export const SignupScreen = ({ navigation }) => {
             <Button
               icon="lock"
               mode="contained"
-              color="#0277bd"
+              color="#03a9f4"
               style={styles.button}
               onPress={() => navigation.navigate("Login")}
             >
@@ -74,22 +82,25 @@ const styles = StyleSheet.create({
   },
 
   circle: {
-    width: 600,
-    height: 600,
-    borderRadius: 600 / 2,
-    backgroundColor: "#FFF",
+    width: 750,
+    height: 750,
+    borderRadius: 750 / 2,
+    borderColor: "#fff",
+    backgroundColor: "#bab7c3",
     position: "absolute",
     left: -120,
-    top: -20,
+    top: -100,
   },
+
   header: {
     marginHorizontal: 32,
     marginTop: 200,
   },
+
   headertext: {
     fontWeight: "800",
     fontSize: 30,
-    color: "#514e5a",
+    color: "#fff",
   },
 
   inputcontainer: {
@@ -103,7 +114,9 @@ const styles = StyleSheet.create({
     borderColor: "#bab7c3",
     borderRadius: 10,
     paddingHorizontal: 16,
-    fontWeight: "800",
+    fontWeight: "600",
+    backgroundColor: "#fff",
+    opacity: 0.7,
   },
 
   button: {

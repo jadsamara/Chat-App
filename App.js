@@ -4,9 +4,7 @@ import { AuthenticatedUserProvider } from "./src/service/Authenticated";
 import { LogBox } from "react-native";
 
 export default function App() {
-  LogBox.ignoreLogs([
-    "Warning: Async Storage has been extracted from react-native core",
-  ]);
+  LogBox.ignoreAllLogs(); //Ignore all log notifications
   return (
     <AuthenticatedUserProvider>
       <Navigator />
