@@ -20,7 +20,7 @@ export const LoginScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.circle} />
       <View style={styles.header}>
-        <Text style={styles.headertext}>Username</Text>
+        <Text style={styles.headertext}>Welcome!</Text>
         <View style={styles.inputcontainer}>
           <TextInput
             style={styles.textinput}
@@ -29,7 +29,6 @@ export const LoginScreen = ({ navigation }) => {
             autoCapitalize="none"
             keyboardType="email-address"
             textContentType="emailAddress"
-            autoFocus={true}
             value={email}
           />
           <TextInput
@@ -42,13 +41,24 @@ export const LoginScreen = ({ navigation }) => {
             value={password}
             onChangeText={setPassword}
           />
-          <View style={{ marginTop: 10 }}>
+          <View style={{ marginTop: 20, alignItems: "center" }}>
             <Button
-              icon="camera"
+              icon="lock"
               mode="contained"
-              onPress={() => console.log("Pressed")}
+              color="#0277bd"
+              onPress={onHandleLogin}
+              style={styles.button}
             >
-              Press me
+              Log In
+            </Button>
+            <Button
+              icon="lock"
+              mode="contained"
+              color="#0277bd"
+              style={styles.button}
+              onPress={() => navigation.navigate("Signup")}
+            >
+              Signup
             </Button>
           </View>
         </View>
@@ -64,9 +74,9 @@ const styles = StyleSheet.create({
   },
 
   circle: {
-    width: 550,
-    height: 550,
-    borderRadius: 500 / 2,
+    width: 600,
+    height: 600,
+    borderRadius: 600 / 2,
     backgroundColor: "#FFF",
     position: "absolute",
     left: -120,
@@ -97,11 +107,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: 90,
-    height: 90,
-    borderRadius: 90 / 2,
-    backgroundColor: "#9075e3",
-    alignItems: "center",
-    justifyContent: "center",
+    width: "70%",
+    marginTop: 10,
   },
 });
